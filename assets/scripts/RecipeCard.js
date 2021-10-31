@@ -116,7 +116,7 @@ class RecipeCard extends HTMLElement {
   newElement = document.createElement("p");
   newElement.classList.add('title');
   card.appendChild(newElement);
-  console.log(newElement);
+  // console.log(newElement);
     
   //Creating a with class title and a href inside it 
   let nestNewElement = document.createElement("a");
@@ -125,7 +125,7 @@ class RecipeCard extends HTMLElement {
     // nestNewElement.innerHTML= data["name"];
   nestNewElement.href = searchForKey(data,"url");
   newElement.appendChild(nestNewElement);
-  newElement.appendChild(nestNewElement);
+  // newElement.appendChild(nestNewElement);
 
   // console.log(newElement);
 
@@ -150,14 +150,14 @@ class RecipeCard extends HTMLElement {
   if(searchForKey(data,"ratingValue")){
     //set span to rating value
       nestNewElement.innerHTML = searchForKey(data,"ratingValue");
-      console.log(searchForKey(data,"ratingValue"));
+      // console.log(searchForKey(data,"ratingValue"));
     //creating the image value
       // nestNewElement.value = searchForKey(data,"ratingValue");
       nestNewElement = document.createElement("img");
       nestNewElement.src = "";
       //getting the star value;
       let star = parseFloat(  searchForKey(data,"ratingValue") );
-      console.log(star);
+      // console.log(star);
       if(star>=4.5){
         nestNewElement.src = "assets/images/icons/5-star.svg";
         nestNewElement.alt = "5 stars";

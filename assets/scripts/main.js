@@ -5,7 +5,13 @@
 const recipes = [
   'https://introweb.tech/assets/json/ghostCookies.json',
   'https://introweb.tech/assets/json/birthdayCake.json',
-  'https://introweb.tech/assets/json/chocolateChip.json'
+  'https://introweb.tech/assets/json/chocolateChip.json',
+  'assets/recipes/recipe1.json',
+  'assets/recipes/recipe3.json',
+  'assets/recipes/recipe2.json'
+  
+
+  
 ];
 
 // Once all of the recipes that were specified above have been fetched, their
@@ -27,10 +33,11 @@ async function init() {
 
   // console.log(recipeData);
   // Add the first three recipe cards to the page
-  console.log("before create recipe card");
+
   createRecipeCards();
-  console.log("after create recipe card");
+
   // Make the "Show more" button functional
+  let flag = true;
   bindShowMore();
 }
 
@@ -38,6 +45,7 @@ async function fetchRecipes() {
   return new Promise((resolve, reject) => {
 
     for(let i =0;i<recipes.length;i++){
+
       fetch(recipes[i])
       .then(response => response.json())// returns a promise that gets the json file
       .then(data =>{
@@ -80,7 +88,7 @@ function createRecipeCards() {
 
 let mainSelector = document.querySelector('main');
 let newRecipeCard;
-for(let i in recipeData){
+for(let i = 0; i<3; i++){
   newRecipeCard = document.createElement("recipe-card");
   // console.log("EXECUTED HERE");
   //console.log("EXECUTED HERE");
@@ -99,6 +107,55 @@ for(let i in recipeData){
 }
 
 function bindShowMore() {
+
+  let buttonSelector = document.querySelector("button");
+
+  buttonSelector.addEventListener('click',()=>{
+
+      if(buttonSelector.textContent==="Show more"){
+        buttonSelector.textContent= "Show less";
+        let mainSelector = document.querySelector('main');
+        let newRecipeCard;
+        for(let i = 3; i<6; i++){
+        newRecipeCard = document.createElement("recipe-card");
+        // console.log("EXECUTED HERE");
+        //console.log("EXECUTED HERE");
+
+        newRecipeCard.data = recipeData[i];
+        mainSelector.appendChild( newRecipeCard);
+      
+    }
+      }else{
+        buttonSelector.textContent = "Show more";
+        let mainSelector = document.querySelector('main');
+        let newRecipeCard;
+        // for(let i in mainSelector){
+        //   console.log(i);
+        // }
+        // console.log(mainSelector);
+        for(let i = 0; i<3; i++){
+          // console.log("REMOVE");
+        // newRecipeCard = document.createElement("recipe-card");
+        let removalElement = document.querySelector('main');
+        // console.log(removalElement.childNodes[6]);
+
+        // console.log(removalElement.childNodes[3]);
+         removalElement.removeChild(removalElement.childNodes[6]);
+        // console.log("EXECUTED HERE");
+        //console.log("EXECUTED HERE");
+
+        
+      
+    }
+
+
+
+
+        
+      }
+  })
+
+
   // This function is also called for you up above.
   // Use this to add the event listener to the "Show more" button, from within 
   // that listener you can then create recipe cards for the rest of the .json files
