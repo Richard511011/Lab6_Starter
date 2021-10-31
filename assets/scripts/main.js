@@ -24,14 +24,40 @@ async function init() {
     console.log('Recipe fetch unsuccessful');
     return;
   };
+
+  // console.log(recipeData);
   // Add the first three recipe cards to the page
+  console.log("before create recipe card");
   createRecipeCards();
+  console.log("after create recipe card");
   // Make the "Show more" button functional
   bindShowMore();
 }
 
 async function fetchRecipes() {
   return new Promise((resolve, reject) => {
+
+    for(let i =0;i<recipes.length;i++){
+      fetch(recipes[i])
+      .then(response => response.json())// returns a promise that gets the json file
+      .then(data =>{
+        
+        recipeData[i] = data;
+        // console.log(data);
+        var size = Object.keys(recipeData).length;
+
+        if(recipes.length==(size)){
+
+          resolve(true);
+        }})//The date here is the json file
+      .catch((error)=>{ reject(false)}); //If the fetch results in an error, call reject(false)
+
+    }
+    //do i need to wait to call this resolve(true)
+ 
+
+    // if()
+    
     // This function is called for you up above
     // From this function, you are going to fetch each of the recipes in the 'recipes' array above.
     // Once you have that data, store it in the 'recipeData' object. You can use whatever you like
@@ -43,10 +69,26 @@ async function fetchRecipes() {
     // in the recipes folder and fetch them from there. You'll need to add their paths to the recipes array.
 
     // Part 1 Expose - TODO
+
+
+
   });
 }
 
 function createRecipeCards() {
+
+
+let mainSelector = document.querySelector('main');
+let newRecipeCard;
+for(let i in recipeData){
+  newRecipeCard = document.createElement("recipe-card");
+  // console.log("EXECUTED HERE");
+  //console.log("EXECUTED HERE");
+
+  newRecipeCard.data = recipeData[i];
+  mainSelector.appendChild( newRecipeCard);
+      
+    }
   // This function is called for you up above.
   // From within this function you can access the recipe data from the JSON 
   // files with the recipeData Object above. Make sure you only display the 
