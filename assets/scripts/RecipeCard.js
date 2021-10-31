@@ -210,8 +210,9 @@ class RecipeCard extends HTMLElement {
 
 
 
- this.shadowRoot.appendChild(card);
+ 
        this.shadowRoot.appendChild(styleElem);
+       this.shadowRoot.appendChild(card);
 
     // Some functions that will be helpful here:
     //    document.createElement()
