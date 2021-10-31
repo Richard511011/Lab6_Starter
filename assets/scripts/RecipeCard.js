@@ -1,5 +1,9 @@
 class RecipeCard extends HTMLElement {
   constructor() {
+    super();
+
+    //attaching shadow dom
+    this.attachShadow({mode:'open'});
     // Part 1 Expose - TODO
 
     // You'll want to attach the shadow DOM here
@@ -84,9 +88,129 @@ class RecipeCard extends HTMLElement {
       }
     `;
     styleElem.innerHTML = styles;
+    //appending css style file to shadow root
+
+   
 
     // Here's the root element that you'll want to attach all of your other elements to
     const card = document.createElement('article');
+    
+    //Appending root article element to shadow root
+    
+
+
+  //creating image url and adding it to document
+  let newElement = document.createElement("img");
+// console.log(data);
+  // console.log(searchForKey(data,"thumbnailUrl"));
+  newElement.src = searchForKey(data,"thumbnailUrl");
+  newElement.alt = "Recipe Title";
+
+  // console.log("RIGHT HERE");
+  card.appendChild(newElement);
+
+
+     
+  //Creating p with class title and a href inside it 
+  newElement = document.createElement("p");
+  newElement.classList.add('title');
+  card.appendChild(newElement);
+  console.log(newElement);
+    
+  //Creating a with class title and a href inside it 
+  let nestNewElement = document.createElement("a");
+
+  nestNewElement.innerHTML= searchForKey(data,"name");
+    // nestNewElement.innerHTML= data["name"];
+  nestNewElement.href = searchForKey(data,"url");
+  newElement.appendChild(nestNewElement);
+  newElement.appendChild(nestNewElement);
+
+  // console.log(newElement);
+
+
+  //Creating p with class organization and a href inside it 
+  newElement = document.createElement("p");
+  newElement.classList.add('organization');
+  newElement.innerHTML = searchForKey(data,"name");
+  card.appendChild(newElement);
+
+  //Create the rating div
+  //NewElement->Rating Div
+  newElement = document.createElement("div");
+  newElement.classList.add('rating');
+  card.appendChild(newElement);
+  nestNewElement = document.createElement("span");
+
+  newElement.appendChild(nestNewElement);
+  // //if the datapoint contains rating, add image and span of number
+
+ 
+  if(searchForKey(data,"ratingValue")){
+    //set span to rating value
+      nestNewElement.innerHTML = searchForKey(data,"ratingValue");
+      console.log(searchForKey(data,"ratingValue"));
+    //creating the image value
+      // nestNewElement.value = searchForKey(data,"ratingValue");
+      nestNewElement = document.createElement("img");
+      nestNewElement.src = "";
+      //getting the star value;
+      let star = parseFloat(  searchForKey(data,"ratingValue") );
+      console.log(star);
+      if(star>=4.5){
+        nestNewElement.src = "/assets/images/icons/5-star.svg";
+        nestNewElement.alt = "5 stars";
+      }else if (star>=4){
+        nestNewElement.src = "/assets/images/icons/4-star.svg";
+        nestNewElement.alt = "4 stars";
+      }else if (star>=3){
+        nestNewElement.src = "/assets/images/icons/3-star.svg";
+        nestNewElement.alt = "3 stars";
+      }else if (star>=2){
+        nestNewElement.src = "/assets/images/icons/2-star.svg";
+        nestNewElement.alt = "2 stars";
+      }else if(star>=1){
+        nestNewElement.src = "/assets/images/icons/1-star.svg";
+        nestNewElement.alt = "1 stars";
+      }else{
+        nestNewElement.src = "/assets/images/icons/0-star.svg";
+        nestNewElement.alt = "0 stars";
+      }
+
+     newElement.appendChild(nestNewElement);
+      //create total number of reviews span
+      nestNewElement = document.createElement("span");
+      nestNewElement.value = `(${searchForKey(data,"ratingCount")})`;
+
+  //case if the datapoint does not contain rating
+      }  else
+  {
+    //setting span value to No Reviews
+   nestNewElement.innerHTML = "No Reviews";
+   newElement.appendChild(nestNewElement);
+    
+  }
+
+
+  //Creating time element
+  newElement = document.createElement("time");
+
+  //getting prep time:
+  newElement.innerHTML = convertTime(searchForKey(data,"totalTime"));
+  card.appendChild(newElement);
+
+  //creating ingredient list:
+
+
+  newElement = document.createElement("p");
+  newElement.classList.add('ingredients');
+  newElement.innerHTML=createIngredientList(searchForKey(data,"recipeIngredient"));
+  card.appendChild(newElement);
+
+
+
+ this.shadowRoot.appendChild(card);
+       this.shadowRoot.appendChild(styleElem);
 
     // Some functions that will be helpful here:
     //    document.createElement()
@@ -191,6 +315,28 @@ function convertTime(time) {
 
   return '';
 }
+
+// function convertTime(time) {
+//   let timeStr = '';
+
+//   // Remove the 'PT'
+//   time = time.slice(2);
+
+//   let timeArr = time.split('');
+//   if (time.includes('H')) {
+//     for (let i = 0; i < timeArr.length; i++) {
+//       if (timeArr[i] == 'H') return (parseInt(timeStr)*60);
+//       timeStr += timeArr[i];
+//     }
+//   } else {
+//     for (let i = 0; i < timeArr.length; i++) {
+//       if (timeArr[i] == 'M') return parseInt(timeStr);
+//       timeStr += timeArr[i];
+//     }
+//   }
+
+//   return '';
+// }
 
 /**
  * Takes in a list of ingredients raw from imported data and returns a neatly
