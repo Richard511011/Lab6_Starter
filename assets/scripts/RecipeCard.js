@@ -1,3 +1,4 @@
+//Richard Yu Lab 6
 class RecipeCard extends HTMLElement {
   constructor() {
     super();
@@ -354,6 +355,7 @@ function createIngredientList(ingredientArr) {
    * (sometimes there isn't, so this would fail on something like '2 apples' or 'Some olive oil').
    * For the purposes of this lab you don't have to worry about those cases.
    * @param {String} ingredient the raw ingredient string you'd like to process
+   * //Richard Yu Lab 6
    * @return {String} the ingredient without the measurement & quantity 
    * (e.g. '1 cup flour' returns 'flour')
    */
@@ -373,3 +375,4 @@ function createIngredientList(ingredientArr) {
 // Define the Class so you can use it as a custom element.
 // This is critical, leave this here and don't touch it
 customElements.define('recipe-card', RecipeCard);
+//Richard Yu Lab 6
