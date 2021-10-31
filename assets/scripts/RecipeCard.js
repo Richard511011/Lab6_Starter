@@ -121,7 +121,7 @@ class RecipeCard extends HTMLElement {
   //Creating a with class title and a href inside it 
   let nestNewElement = document.createElement("a");
 
-  nestNewElement.innerHTML= searchForKey(data,"name");
+  nestNewElement.innerHTML= searchForKey(data,"headline");
     // nestNewElement.innerHTML= data["name"];
   nestNewElement.href = searchForKey(data,"url");
   newElement.appendChild(nestNewElement);
@@ -159,22 +159,22 @@ class RecipeCard extends HTMLElement {
       let star = parseFloat(  searchForKey(data,"ratingValue") );
       console.log(star);
       if(star>=4.5){
-        nestNewElement.src = "/assets/images/icons/5-star.svg";
+        nestNewElement.src = "assets/images/icons/5-star.svg";
         nestNewElement.alt = "5 stars";
       }else if (star>=4){
-        nestNewElement.src = "/assets/images/icons/4-star.svg";
+        nestNewElement.src = "assets/images/icons/4-star.svg";
         nestNewElement.alt = "4 stars";
       }else if (star>=3){
-        nestNewElement.src = "/assets/images/icons/3-star.svg";
+        nestNewElement.src = "assets/images/icons/3-star.svg";
         nestNewElement.alt = "3 stars";
       }else if (star>=2){
-        nestNewElement.src = "/assets/images/icons/2-star.svg";
+        nestNewElement.src = "assets/images/icons/2-star.svg";
         nestNewElement.alt = "2 stars";
       }else if(star>=1){
-        nestNewElement.src = "/assets/images/icons/1-star.svg";
+        nestNewElement.src = "assets/images/icons/1-star.svg";
         nestNewElement.alt = "1 stars";
       }else{
-        nestNewElement.src = "/assets/images/icons/0-star.svg";
+        nestNewElement.src = "assets/images/icons/0-star.svg";
         nestNewElement.alt = "0 stars";
       }
 
